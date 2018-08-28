@@ -1,0 +1,45 @@
+<aura:component description="Opus_SearchAccount" access="global"
+                implements="flexipage:availableForAllPageTypes,force:hasRecordId"
+                controller="Opus_SearchAccountController">
+
+    <aura:attribute name="searchAccount" type="Account"
+                    default="{ 'sobjectType': 'Account',
+            'Name': '',
+            'City': '',
+            'Country': '',
+            'EmailAsText__c': ''}"/>
+    <aura:attribute name="isVisible" type="Boolean" default="true"/>
+    <aura:registerEvent name="Opus_SearchForAccounts" type="c:Opus_SearchForAccounts"/>
+    <aura:registerEvent name="Opus_DisplaySelectedAccount" type="c:Opus_DisplaySelectedAccount"/>
+
+    <aura:handler event="c:Opus_RefreshSearchForAccountsList" action="{!c.handleSearchForAccounts}"/>
+
+
+    <lightning:card variant="Narrow" title="Search departments" iconName="standard:account">
+
+        <p class="slds-p-horizontal_medium" style="padding-top: 25px;">
+        <div class="row">
+            <aura:if isTrue="{!v.isVisible}">
+
+
+                <lightning:input aura:id="accountInput" label="Name" value="{!v.searchAccount.Name}"
+                                 type="text" placeholder="Please input the name."/>
+                <lightning:input aura:id="accountInput" label="City" value="{!v.searchAccount.BillingCity}" type="text"
+                                 placeholder="Please input the city."/>
+                <lightning:input aura:id="accountInput" label="Country" value="{!v.searchAccount.BillingCountry}"
+                                 type="text" placeholder="Please input the country."/>
+                <lightning:input aura:id="accountInput" label="Email" value="{!v.searchAccount.EmailAsText__c}"
+                                 type="text"
+                                 placeholder="Please input the email."/>
+            </aura:if>
+        </div>
+        <div class="row slds-align_absolute-center">
+            <lightning:button onclick="{!c.handleSearchForAccounts}" label="Search"/>
+            <lightning:button onclick="{!c.handleClearAccounts}" label="Clear"/>
+        </div>
+        </p>
+
+
+    </lightning:card>
+
+</aura:component>

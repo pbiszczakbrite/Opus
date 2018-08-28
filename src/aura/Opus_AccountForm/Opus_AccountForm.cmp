@@ -1,0 +1,81 @@
+<aura:component description="Opus_AccountForm" access="global"
+                implements="flexipage:availableForAllPageTypes,force:hasRecordId"
+                controller="Opus_AccountFormController">
+
+    <aura:attribute name="isFormVisible" type="Boolean" default="true"/>
+    <aura:attribute name="selectedAccount" type="Account" default="{ 'sobjectType': 'Account',
+                        'Name': '',
+                        'BillingCity': '',
+                        'BillingCountry': '',
+                        'Email__c': '' }"/>
+
+    <aura:registerEvent name="Opus_RefreshSearchForAccountsList" type="c:Opus_RefreshSearchForAccountsList"/>
+    <aura:handler event="c:Opus_SendAccountToForm" action="{!c.getAccountAndShowModal}"/>
+
+    <div>
+        <section role="dialog" tabindex="-1" aura:id="modaldialog" aria-labelledby="modal-heading-01" aria-modal="true"
+                 aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-hide">
+            <div class="slds-modal__container">
+
+
+                <lightning:card variant="Narrow" title="Account form" iconName="standard:account">
+
+                    <div class="slds-grid--align-center">
+                        <div class="slds-col slds-size_11-of-12">
+
+                            <div class="row slds-form slds-form_horizontal">
+
+
+                                <form class="slds-form--stacked">
+
+                                    <aura:if isTrue="{!v.isFormVisible}">
+                                        <lightning:input type="text" aura:id="accountForm" label="Name"
+                                                         name="itemName"
+                                                         value="{!v.selectedAccount.Name}"
+                                                         required="true"/>
+
+                                        <lightning:input type="text" aura:id="accountForm" label="City"
+                                                         name="itemName"
+                                                         value="{!v.selectedAccount.BillingCity}"
+                                                         required="true"/>
+
+                                        <lightning:input type="text" aura:id="accountForm" label="Country"
+                                                         name="itemName"
+                                                         value="{!v.selectedAccount.BillingCountry}"
+                                                         required="true"/>
+
+                                        <lightning:input type="email" aura:id="accountForm" label="Email"
+                                                         name="itemName"
+                                                         value="{!v.selectedAccount.Email__c}"
+                                                         required="true"/>
+
+                                        <div class="row slds-align_absolute-center">
+                                            <lightning:button label="Save"
+                                                              class="slds-m-top--medium"
+                                                              variant="brand"
+                                                              onclick="{!c.clickSaveAccount}"/>
+                                            <lightning:button label="Close"
+                                                              class="slds-m-top--medium"
+                                                              variant="neutral"
+                                                              onclick="{!c.clickCloseButton}"/>
+
+                                        </div>
+                                    </aura:if>
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </lightning:card>
+
+            </div>
+
+
+        </section>
+        <div class="slds-backdrop slds-backdrop--hide" aura:id="backdrop">
+
+        </div>
+    </div>
+
+</aura:component>

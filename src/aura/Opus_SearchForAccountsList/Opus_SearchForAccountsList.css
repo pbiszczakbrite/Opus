@@ -1,0 +1,34 @@
+.THIS .slds-table .slds-checkbox {
+    width: 800px;
+    display: inline-block;
+    position: sticky;
+    z-index: 200;
+
+}
+
+.THIS  .slds-checkbox .slds-checkbox_faux, .THIS  .slds-checkbox .slds-checkbox--faux, .THIS .slds-checkbox__label  {
+    border: none;
+}
+.THIS .slds-cell-edit {
+
+}
+.THIS tr >td:first-child {
+    width: 1px;
+}
+
+.THIS .slds-checkbox [type=checkbox]:checked+.slds-checkbox_faux:after, .THIS .slds-checkbox [type=checkbox]:checked+.slds-checkbox--faux:after,
+.THIS .slds-checkbox [type=checkbox]:checked~.slds-checkbox_faux:after, .THIS .slds-checkbox [type=checkbox]:checked~.slds-checkbox--faux:after,
+.THIS .slds-checkbox [type=checkbox]:checked+.slds-checkbox__label .slds-checkbox_faux:after,
+.THIS .slds-checkbox [type=checkbox]:checked+.slds-checkbox__label .slds-checkbox--faux:after {
+    left:10px;
+}
+
+
+.THIS .slds-cell-edit.slds-has-focus {
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.THIS {
+}

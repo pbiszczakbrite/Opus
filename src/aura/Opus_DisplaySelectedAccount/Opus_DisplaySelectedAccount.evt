@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="Opus_DisplaySelectedAccount">
+    <aura:attribute name="selectedAccount" type="Account"/>
+</aura:event>

@@ -1,0 +1,40 @@
+<aura:component description="Opus_SearchForAccountsList" access="global"
+                implements="flexipage:availableForAllPageTypes,force:hasRecordId" controller="Opus_SearchForAccountsListController">
+
+    <aura:attribute name="searchAccounts" type="Account[]" default="null"/>
+    <aura:attribute name="accountsColumns" type="List"/>
+    <aura:attribute name="selectedAccountId" type="Id"/>
+    <aura:attribute name="selectedRows" type="List" default="null"/>
+    <aura:attribute name="isVisible" type="Boolean" default="true" />
+    <aura:registerEvent name="Opus_DisplaySelectedAccount" type="c:Opus_DisplaySelectedAccount"/>
+    <aura:registerEvent name="Opus_SendAccountToForm" type="c:Opus_SendAccountToForm"/>
+
+
+    <aura:handler event="c:Opus_SearchForAccounts" action="{!c.getAccounts}"/>
+
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+
+
+    <lightning:card variant="base" title="Departments" iconName="standard:account">
+        <aura:set attribute="actions">
+            <lightning:button label="New" onclick="{!c.sendAccountToForm}"/>
+        </aura:set>
+
+        <aura:if isTrue="{!v.searchAccounts != null}">
+
+
+
+        <lightning:datatable data="{! v.searchAccounts }"
+                             columns="{! v.accountsColumns }"
+                             keyField="id"
+                             maxRowSelection="2"
+                             onrowaction="{! c.handleRowAction }"
+                             onrowselection="{!c.getSelectedAccount}"
+                             selectedRows="{!v.selectedRows}"/>
+            </aura:if>
+
+
+
+    </lightning:card>
+
+</aura:component>

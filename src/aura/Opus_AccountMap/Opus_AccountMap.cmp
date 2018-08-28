@@ -1,0 +1,19 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId">
+
+    <aura:attribute name="accounts" type="Account[]"/>
+    <aura:attribute name="selectedAccount" type="Account"/>
+    <aura:attribute name="isRecordPage" type="Boolean"/>
+
+    <aura:attribute name="map" type="Object"/>
+    <aura:attribute name="markers" type="Object"/>
+
+    <aura:handler name="change" value="{!v.accounts}" action="{!c.accountsChangeHandler}"/>
+    <aura:handler name="change" value="{!v.selectedAccount}" action="{!c.selectedAccountChangeHandler}"/>
+
+    <div aura:id="map"></div>
+
+    <ltng:require styles="{!$Resource.Opus_LeafletCSS}"
+                  scripts="{!$Resource.Opus_LeafletJS}"
+                  afterScriptsLoaded="{!c.jLoaded}"/>
+
+</aura:component>

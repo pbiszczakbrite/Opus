@@ -1,0 +1,41 @@
+<aura:component description="Opus_ReportView" controller="Opus_ReportViewAuraController" access="global"
+                implements="force:hasRecordId,forceCommunity:availableForAllPageTypes,force:appHostable,force:hasRecordId,flexipage:availableForAllPageTypes">
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="contactsNumber" type="Integer"/>
+    <aura:attribute name="opportunitiesNumber" type="Integer"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <article class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+        <span class="slds-icon_container" title="Related Objects - Report">
+           <lightning:icon iconName="utility:ad_set" size="large" alternativeText="Indicates approval"/>
+          <span class="slds-assistive-text">account</span>
+        </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <a href="javascript:void(0);" class="slds-card__header-link slds-truncate" title="Accounts">
+                            <span class="slds-text-heading_small">Related Objects - Report</span>
+                        </a>
+                    </h2>
+                </div>
+            </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+
+            <div style="display:inline-block; width:69%;">
+                Contacts number<br/>
+                Opportunities number<br/>
+            </div>
+            <div style="display:inline-block; width: 30%;">
+            {!v.contactsNumber}<br/>
+                    {!v.opportunitiesNumber}<br/>
+            </div>
+
+        </div>
+    </article>
+
+
+</aura:component>

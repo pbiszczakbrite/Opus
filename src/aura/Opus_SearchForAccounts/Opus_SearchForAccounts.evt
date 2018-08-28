@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="Opus_SearchForAccounts">
+    <aura:attribute name="searchAccounts" type="Account[]"/>
+</aura:event>

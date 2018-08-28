@@ -1,0 +1,23 @@
+<aura:component description="Opus_Details" access="global"
+                implements="flexipage:availableForAllPageTypes,force:hasRecordId" controller="Opus_DetailsController">
+    <aura:attribute name="selectedAccount" type="Account" default="null"/>
+    <aura:attribute name="selectedAccountOwner" type="User"/>
+    <aura:handler event="c:Opus_DisplaySelectedAccount" action="{!c.getAccount}"/>
+
+    <lightning:card variant="Narrow" title="Details" iconName="standard:account">
+        <aura:if isTrue="{!v.selectedAccount != null}">
+
+            <p class="slds-p-horizontal_medium" style="padding-top: 25px;">
+
+
+            <h2><strong>Name:</strong></h2>{!v.selectedAccount.Name}<br/><br/>
+            <h2><strong>Owner:</strong></h2> {!v.selectedAccountOwner.Name}<br/><br/>
+            <h2><strong>Account number:</strong></h2> {!v.selectedAccount.AccountNumber}<br/><br/>
+
+
+            </p>
+
+        </aura:if>
+    </lightning:card>
+
+</aura:component>

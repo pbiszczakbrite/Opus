@@ -1,0 +1,13 @@
+<aura:component description="Opus_SearchAccountMap" access="global"
+                implements="flexipage:availableForAllPageTypes">
+
+    <aura:attribute name="searchAccounts" type="Account[]"/>
+    <aura:attribute name="selectedAccount" type="Account"/>
+    <aura:handler event="c:Opus_DisplaySelectedAccount" action="{!c.getAccount}"/>
+    <aura:handler event="c:Opus_SearchForAccounts" action="{!c.getAccounts}"/>
+
+    <lightning:card variant="base" title="Map of departments" iconName="standard:account">
+        <c:Opus_AccountLocator selectedAccount="{!v.selectedAccount}" accounts="{!v.searchAccounts}"/>
+    </lightning:card>
+
+</aura:component>
