@@ -1,0 +1,5 @@
+<apex:page id="Opus_GenerateOrder" standardController="Opportunity" tabStyle="Order"  showQuickActionVfHeader="false">
+    <flow:interview name="Opportunity_to_Order"  >
+    <apex:param name="OpptyID" value="{!Opportunity.Id}" />
+</flow:interview>
+</apex:page>

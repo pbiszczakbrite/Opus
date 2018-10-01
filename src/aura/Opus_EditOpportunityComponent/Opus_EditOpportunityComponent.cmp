@@ -1,0 +1,67 @@
+<aura:component description="Opus_EditOpportunityComponent"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,
+                force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:actionOverride"
+                access="global">
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <aura:handler name="change" value="{!v.recordId}" action="{!c.doInit}"/>
+
+    <aura:attribute name="opportunity" type="Object"/>
+    <aura:attribute name="opportunityRecord" type="Object"/>
+    <aura:attribute name="typeValues" type="Object"/>
+    <c:Opus_Picklist sObjectName="Opportunity" fieldName="Type" picklistValues="{!v.typeValues}"/>
+
+    <aura:attribute access="private" name="recordError" type="String"/>
+
+    <force:recordData aura:id="service"
+                      recordId="{!v.recordId}"
+                      layoutType="FULL"
+                      targetError="{!v.recordError}"
+                      targetRecord="{!v.opportunity}"
+                      targetFields="{!v.opportunityRecord}"
+                      mode="EDIT"
+    />
+
+
+    <lightning:card class="slds-col_padded-around-medium" iconName="standard:opportunity">
+        <aura:set attribute="title">
+            Edit opportunity
+        </aura:set>
+
+        <lightning:layout multipleRows="true" class="slds-p-horizontal_medium">
+
+            <lightning:layoutItem size="12" padding="around-small">
+                <lightning:select label="Select a type" value="{!v.opportunityRecord.Type}">
+                    <aura:iteration items="{!v.typeValues}" var="item">
+                        <option value="{!item.value}">
+                                {!item}
+                        </option>
+                    </aura:iteration>
+                </lightning:select>
+            </lightning:layoutItem>
+
+            <lightning:layoutItem size="12" padding="around-small">
+
+
+                <lightning:input type="text" name="Opportunity Name" label="Opportunity Name"
+                                 value="{!v.opportunityRecord.Name}" />
+            </lightning:layoutItem>
+
+
+            <lightning:layoutItem size="12" padding="around-small">
+                <lightning:input type="text" label="Description" value="{!v.opportunityRecord.Description}"/>
+            </lightning:layoutItem>
+
+            <lightning:layoutItem size="12" padding="around-small">
+                <lightning:input type="number" label="Amount" formatter="currency" value="{!v.opportunityRecord.Amount}"/>
+            </lightning:layoutItem>
+
+            <lightning:layoutItem size="12" class="slds-align--absolute-center">
+                <lightning:button iconName="utility:save" label="Submit" onclick="{!c.onSave}"/>
+            </lightning:layoutItem>
+
+            <lightning:layoutItem size="12" class="slds-align--absolute-center">
+                <lightning:button iconName="utility:save" label="Cancel" onclick="{!c.onCancel}"/>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </lightning:card>
+</aura:component>

@@ -1,0 +1,41 @@
+<aura:component description="Opus_ChangeOpportunityFields" implements="force:hasRecordId,force:lightningQuickAction">
+
+
+
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+
+
+
+    <div class="slds-col modal-header slds-scrollable_none slds-modal__header">
+        <h2 class="title slds-text-heading--medium">Update Opportunity - Name and Close Date</h2>
+        </div>
+
+
+
+    <lightning:recordEditForm
+            aura:id="editForm"
+            onsuccess="{!c.handleOpportunitySaved}"
+            recordId="{!v.recordId}"
+            onerror="{!c.getError}"
+            objectApiName="Opportunity">
+
+        <lightning:messages/>
+
+        <div class="slds-col modal-body slds-p-around--medium" style="height: 350px; max-height: 600px; overflow-y: auto !important">
+            <div>
+
+                    <lightning:layoutItem class="slds-m-top--xx-large" padding="horizontal-small">
+                        <lightning:inputField fieldName="Name"/>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem class="slds-m-top--small" padding="horizontal-small">
+                        <lightning:inputField fieldName="CloseDate"/>
+                    </lightning:layoutItem>
+
+            </div>
+    </div>
+    <div class="slds-col modal-footer slds-modal__footer">
+        <lightning:button variant="neutral" label="Cancel" onclick="{! c.handleOnCancel}" />
+        <lightning:button variant="brand" type="submit" name="save" label="Save"/>
+    </div>
+    </lightning:recordEditForm>
+</aura:component>

@@ -1,5 +1,14 @@
 public with sharing class Opus_Utils {
 
+    public static String getPriceBook(String partnerLevel) {
+        PriceBooks__c pricebookItem = PriceBooks__c.getInstance(partnerLevel);
+
+        if (pricebookItem == null) {
+            return Test.getStandardPricebookId();
+        }
+        return pricebookItem.Value__c;
+    }
+
     public class SoqlUtil {
 
         private List<String> resultFieldsNames;

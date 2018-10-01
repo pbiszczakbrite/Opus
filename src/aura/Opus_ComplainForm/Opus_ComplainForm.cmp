@@ -1,0 +1,64 @@
+<aura:component implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,
+              forceCommunity:availableForAllPageTypes,force:lightningQuickAction" description="Opus_ComplainForm" controller="Opus_ComplainFormController">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="products" type="OrderItem[]" default="{}"/>
+    <aura:attribute name="orderId" type="String" default="null"/>
+    <aura:attribute name="complain" type="Case" default="{ 'sobjectType': 'Case',
+             'Id': null,
+            'Subject': '',
+             'Description': ''}"/>
+    <aura:attribute name="priorityValues" type="Object"/>
+    <c:Opus_Picklist sObjectName="Case" fieldName="Priority" picklistValues="{!v.priorityValues}" />
+    <lightning:card>
+
+
+
+<lightning:layout>
+            <div class="slds-grid slds-wrap">
+            <lightning:layoutItem class="slds-col slds-size_6-of-12 slds-m-bottom--small" padding="horizontal-small">
+                <lightning:input label="Subject" type="text" value="{!v.complain.Subject}"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem class="slds-col slds-size_6-of-12 slds-p-horizontal--small">
+            </lightning:layoutItem>
+
+
+            <lightning:layoutItem class="slds-col slds-size_6-of-12" padding="horizontal-small">
+                <lightning:select label="Select a priority" value="{!v.complain.Priority}">
+                    <aura:iteration items="{!v.priorityValues}" var="item">
+                        <option value="{!item.value}">
+                                {!item}
+                        </option>
+                    </aura:iteration>
+                </lightning:select>
+            </lightning:layoutItem>
+
+            <lightning:layoutItem class="slds-col slds-size_6-of-12">
+            </lightning:layoutItem>
+            <lightning:layoutItem class="slds-col slds-size_6-of-12" padding="horizontal-small">
+                <lightning:select aura:id="product" name="selectProduct" label="Select a product">
+                    <aura:iteration items="{!v.products}" var="product">
+                        <option value="{!product.PricebookEntry.Name}">{!product.PricebookEntry.Name}</option>
+                    </aura:iteration>
+                </lightning:select>
+            </lightning:layoutItem>
+            <lightning:layoutItem class="slds-col slds-size_3-of-12">
+
+                <lightning:input label="Product Quantity" type="number" value="{!v.complain.ProductQuantity__c}"/>
+            </lightning:layoutItem>
+
+
+            <lightning:layoutItem class="slds-col slds-size_12-of-12  slds-m-top--small slds-m-bottom--small" padding="horizontal-small">
+                <lightning:input type="text" label="Description" value="{!v.complain.Description}"/>
+            </lightning:layoutItem>
+
+
+
+            <lightning:layoutItem class="slds-grid_vertical-align-center" padding="horizontal-small">
+                <lightning:button onclick="{!c.handleSend}" label="Send" variant="brand"/>
+            </lightning:layoutItem>
+            </div>
+</lightning:layout>
+    </lightning:card>
+
+
+</aura:component>

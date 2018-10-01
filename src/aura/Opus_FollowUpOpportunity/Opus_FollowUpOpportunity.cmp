@@ -1,0 +1,114 @@
+<aura:component description="Opus_FollowUpOpportunity" controller="Opus_FollowUpOpportunityController"
+                implements="force:lightningQuickAction,force:hasRecordId">
+
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <aura:attribute name="editMode" type="Boolean" default="false"/>
+    <aura:attribute name="sourceRecord" type="Object" default="{  'sobjectType': 'Opportunity'}"/>
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="sourceRecordFields" type="Object" default="'sobjectType': 'Opportunity',
+            'Id': null,
+            'Name': ''"/>
+    <aura:attribute name="error" type="String"/>
+    <aura:attribute name="parentOpportunity" type="Object"/>
+    <aura:attribute name="parentOpportunityName" type="String"/>
+    <aura:attribute name="parentOpportunityId" type="Id"/>
+    <force:recordData aura:id="currentRecord"
+                      fields="Id, Name, StageName"
+                      targetRecord="{!v.sourceRecord}"
+                      targetFields="{!v.sourceRecordFields}"
+                      targetError="{!v.error}"/>
+
+
+    <lightning:card>
+        <lightning:recordEditForm
+                aura:id="editForm"
+                onsuccess="{!c.handleOpportunitySaved}"
+                onerror="{!c.getError}"
+                objectApiName="Opportunity">
+
+
+            <lightning:layoutItem class="slds-m-top--small" padding="horizontal-small">
+                <label class="slds-form-element__label">Parent Opportunity</label><br/>
+                    {!v.parentOpportunity.Name}<em class="slds-p-left--x-small">(this opportunity)</em><br/>
+            </lightning:layoutItem>
+            <div style="display: none">
+                <lightning:layoutItem class="slds-m-top--small" padding="horizontal-small">
+                    <lightning:inputField fieldName="ParentOpportunity__c" value="{!v.parentOpportunity.Id}"/>
+                </lightning:layoutItem>
+            </div>
+
+            <lightning:layoutItem class="slds-m-top--xx-large" padding="horizontal-small">
+                <lightning:inputField fieldName="Name"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem class="slds-m-top--small" padding="horizontal-small">
+                <lightning:inputField fieldName="AccountId"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem class="slds-m-top--small" padding="horizontal-small">
+                <lightning:inputField fieldName="Probability"/>
+            </lightning:layoutItem>
+
+            <lightning:layoutItem class="slds-m-top--small" padding="horizontal-small">
+                <lightning:inputField fieldName="CloseDate"/>
+            </lightning:layoutItem>
+
+            <lightning:layoutItem class="slds-m-top--xx-large" padding="horizontal-small">
+                <label class="slds-form-element__label">Stage Name</label><br/>
+                    {!v.sourceRecord.StageName}<br/>
+            </lightning:layoutItem>
+            <div style="display: none">
+                <lightning:layoutItem class="slds-m-top--small" padding="horizontal-small">
+                    <lightning:inputField fieldName="StageName" value="New"/>
+                </lightning:layoutItem>
+            </div>
+
+            <lightning:layoutItem class="slds-m-top--small" padding="horizontal-small">
+                <label class="slds-form-element__label">Amount</label><br/>
+                <lightning:formattedNumber value="{!v.parentOpportunity.Amount}" style="currency"
+                                           currencyCode="USD"/><br/>
+            </lightning:layoutItem>
+            <div style="display: none">
+                <lightning:layoutItem class="slds-m-top--small" padding="horizontal-small">
+                    <lightning:inputField fieldName="Amount" value="{!v.parentOpportunity.Amount}"/>
+                </lightning:layoutItem>
+            </div>
+
+            <lightning:layoutItem class="slds-m-top--small" padding="horizontal-small">
+                <label class="slds-form-element__label">Description</label><br/>
+                    {!v.parentOpportunity.Description}<br/>
+            </lightning:layoutItem>
+            <div style="display: none">
+                <lightning:layoutItem class="slds-m-top--small" padding="horizontal-small">
+                    <lightning:inputField fieldName="Description" value="{!v.parentOpportunity.Description}"/>
+                </lightning:layoutItem>
+            </div>
+
+
+            <lightning:layoutItem class="slds-m-top--small" padding="horizontal-small">
+                <label class="slds-form-element__label">PriceBook</label><br/>
+                    {!v.parentOpportunity.Pricebook2.Name}<br/>
+            </lightning:layoutItem>
+            <div style="display: none">
+                <lightning:layoutItem class="slds-m-top--small" padding="horizontal-small">
+                    <lightning:inputField fieldName="Pricebook2Id" value="{!v.parentOpportunity.Pricebook2Id}"/>
+                </lightning:layoutItem>
+            </div>
+            <lightning:layoutItem class="slds-m-top--small" padding="horizontal-small">
+                <label class="slds-form-element__label">Type</label><br/>
+                    {!v.parentOpportunity.Type}<br/>
+            </lightning:layoutItem>
+            <div style="display: none">
+                <lightning:layoutItem class="slds-m-top--small" padding="horizontal-small">
+                    <lightning:inputField fieldName="Type" value="{!v.parentOpportunity.Type}"/>
+                </lightning:layoutItem>
+            </div>
+
+            <lightning:messages/>
+
+            <lightning:layoutItem class="slds-m-top--small" padding="horizontal-small">
+                <lightning:button variant="brand" type="submit" name="save" label="Save" class="slds-m-top_medium"/>
+            </lightning:layoutItem>
+        </lightning:recordEditForm>
+
+    </lightning:card>
+
+</aura:component>

@@ -18,7 +18,7 @@ public with sharing class Opus_ContactHandler {
         checkAccountsId();
     }
 
-//    && contactElement.accountId != mapOfOldContacts.get(contactElement.Id).accountId
+
     public static void onAfterUpdate(List<Contact> listOfNewContacts, Map<Id, Contact> mapOfOldContacts) {
         for (Contact contactElement : listOfNewContacts) {
             if (String.isNotBlank(contactElement.accountId)) {
@@ -27,12 +27,6 @@ public with sharing class Opus_ContactHandler {
                 }
                 accountContactList.get(contactElement.accountId).add(contactElement);
                 accountsId.add(contactElement.accountId);
-//
-//                if(!accountDeleteContactList.containsKey(mapOfOldContacts.get(contactElement.Id).accountId)){
-//                    accountDeleteContactList.put(mapOfOldContacts.get(contactElement.Id).accountId, new List<Contact>());
-//                }
-//                accountDeleteContactList.get(mapOfOldContacts.get(contactElement.Id).accountId).add(contactElement);
-//                accountsId.add(mapOfOldContacts.get(contactElement.Id).accountId);
 
             } else if (String.isBlank(contactElement.accountId) && String.isNotBlank(mapOfOldContacts.get(contactElement.Id).accountId)) {
 
@@ -79,15 +73,15 @@ public with sharing class Opus_ContactHandler {
         if (accountsId.size() > 0) {
             accounts = [SELECT Id, numberOfContacts__c FROM Account WHERE Id IN :accountsId];
 
-            for (Account Account : accounts) {
+            for (Account accountElement : accounts) {
                 Integer noOfConts = 0;
-                if (accountContactList.containsKey(Account.Id)) {
-                    noOfConts += accountContactList.get(Account.Id).size();
+                if (accountContactList.containsKey(accountElement.Id)) {
+                    noOfConts += accountContactList.get(accountElement.Id).size();
                 }
-                if (accountDeleteContactList.containsKey(Account.Id)) {
-                    noOfConts -= accountDeleteContactList.get(Account.Id).size();
+                if (accountDeleteContactList.containsKey(accountElement.Id)) {
+                    noOfConts -= accountDeleteContactList.get(accountElement.Id).size();
                 }
-                Account.numberOfContacts__c = Account.numberOfContacts__c == 0 ? noOfConts : (Account.numberOfContacts__c + noOfConts);
+                accountElement.numberOfContacts__c = (accountElement.numberOfContacts__c == null || accountElement.numberOfContacts__c == 0) ? noOfConts : (accountElement.numberOfContacts__c + noOfConts);
             }
 
             update accounts;
